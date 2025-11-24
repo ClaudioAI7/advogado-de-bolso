@@ -57,14 +57,118 @@ def analyze_contract(text):
 # --- Main App ---
 
 def main():
-    st.set_page_config(page_title="Advogado de Bolso", page_icon="⚖️")
+    st.set_page_config(page_title="Advogado de Bolso", page_icon="⚖️", layout="centered")
+
+    # --- CUSTOM CSS INJECTION ---
+    st.markdown("""
+        <style>
+            /* Import Google Font */
+            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+            /* Global Settings */
+            html, body, [class*="css"] {
+                font-family: 'Inter', sans-serif;
+                color: #333;
+            }
+
+            /* Background */
+            .stApp {
+                background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            }
+
+            /* Hide Streamlit Branding */
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            header {visibility: hidden;}
+
+            /* Buttons */
+            .stButton > button {
+                background-color: #2563EB; /* Royal Blue */
+                color: white;
+                border-radius: 50px;
+                padding: 12px 28px;
+                border: none;
+                box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+                transition: all 0.3s ease;
+                font-weight: 600;
+                font-size: 16px;
+                width: 100%;
+            }
+            .stButton > button:hover {
+                background-color: #1d4ed8;
+                box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
+                transform: translateY(-2px);
+            }
+
+            /* Inputs */
+            .stTextInput > div > div > input {
+                border-radius: 12px;
+                border: 1px solid #e0e0e0;
+                padding: 10px 15px;
+            }
+            
+            /* File Uploader */
+            .stFileUploader > div > div > button {
+                background-color: #f0f9ff;
+                color: #2563EB;
+                border: 1px solid #2563EB;
+            }
+
+            /* Custom Header */
+            .custom-header {
+                text-align: center;
+                padding: 3rem 0 2rem 0;
+            }
+            .custom-header h1 {
+                color: #1e293b;
+                font-weight: 800;
+                font-size: 3.5rem;
+                margin-bottom: 0.5rem;
+                letter-spacing: -1px;
+            }
+            .custom-header p {
+                color: #64748b;
+                font-size: 1.2rem;
+                font-weight: 400;
+            }
+            
+            /* Card Style Container */
+            .css-1r6slb0 {
+                background-color: white;
+                padding: 2rem;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            }
+            
+            /* Info Box */
+            .stAlert {
+                background-color: #eff6ff;
+                border: 1px solid #bfdbfe;
+                color: #1e40af;
+                border-radius: 12px;
+            }
+            
+            /* Text Area */
+            .stTextArea textarea {
+                border-radius: 12px;
+                border: 1px solid #e2e8f0;
+                font-family: 'Inter', sans-serif;
+            }
+        </style>
+    """, unsafe_allow_html=True)
 
     # 1. Login
     if 'logged_in' not in st.session_state:
         st.session_state.logged_in = False
 
     if not st.session_state.logged_in:
-        st.title("🔐 Login - Advogado de Bolso")
+        st.markdown("""
+            <div class="custom-header">
+                <h1>🔐 Acesso Restrito</h1>
+                <p>Digite sua credencial para acessar o Advogado de Bolso.</p>
+            </div>
+        """, unsafe_allow_html=True)
+        
         password = st.text_input("Senha de Acesso", type="password")
         if st.button("Entrar"):
             if password == "ALUGUEL2025":
@@ -74,9 +178,13 @@ def main():
                 st.error("Senha incorreta!")
         return
 
-    # 2. App Interface
-    st.title("⚖️ Advogado de Bolso")
-    st.subheader("Análise de Contratos de Aluguel com IA")
+    # 2. App Interface (Custom Header)
+    st.markdown("""
+        <div class="custom-header">
+            <h1>⚖️ Advogado de Bolso</h1>
+            <p>Sua inteligência jurídica pessoal. Análise de contratos rápida, segura e sem juridiquês.</p>
+        </div>
+    """, unsafe_allow_html=True)
 
     # 3. Disclaimer
     disclaimer = st.checkbox("Declaro que sei que esta ferramenta NÃO substitui um advogado real.")
@@ -103,19 +211,26 @@ def main():
             text = extract_text_from_pdf(uploaded_file)
         
         if text:
-            st.info(f"Documento lido com sucesso! ({len(text)} caracteres)")
+            st.success(f"Documento lido com sucesso! ({len(text)} caracteres)")
             
-            if st.button("Analisar Contrato"):
-                with st.spinner("O Advogado de Bolso está analisando..."):
+            if st.button("Analisar Contrato Agora"):
+                with st.spinner("O Advogado de Bolso está analisando cada cláusula..."):
                     # 1. Análise Técnica
                     analysis = analyze_contract(text)
-                    st.markdown("---")
+                    
+                    st.markdown("### 📋 Resultado da Análise")
                     st.markdown(analysis)
                     
                     # 2. Gerar Mensagem de Negociação
                     st.markdown("---")
-                    st.subheader("💬 Mensagem Pronta para Negociação")
+                    st.markdown("""
+                        <div style="background-color: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 20px;">
+                            <h3 style="margin-top: 0;">💬 Mensagem de Negociação</h3>
+                        </div>
+                    """, unsafe_allow_html=True)
+                    
                     st.info("🎁 **Bônus Exclusivo:** Sabemos que confrontar o proprietário ou imobiliária pode ser desconfortável. Para você não se estressar, nosso aplicativo preparou o texto ideal — formal, educado e firme — baseado exatamente nos problemas encontrados acima. É só copiar e enviar!")
+                    
                     with st.spinner("Escrevendo mensagem de negociação..."):
                         try:
                             model = genai.GenerativeModel('gemini-flash-latest')
@@ -131,7 +246,7 @@ def main():
                             msg_response = model.generate_content(msg_prompt)
                             negotiation_msg = msg_response.text
                             
-                            st.text_area("Copie e envie:", value=negotiation_msg, height=300)
+                            st.text_area("Copie o texto abaixo:", value=negotiation_msg, height=300)
                         except Exception as e:
                             st.error(f"Não foi possível gerar a mensagem de negociação: {e}")
 
