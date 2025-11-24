@@ -67,13 +67,23 @@ def main():
 
             /* Global Settings */
             html, body, [class*="css"] {
-                font-family: 'Inter', sans-serif;
+                font-family: 'Inter', 'Helvetica Neue', sans-serif;
                 color: #333;
             }
 
             /* Background */
             .stApp {
-                background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+                background-color: #f8f9fa;
+            }
+
+            /* Main Container (The "Card" Look) */
+            .block-container {
+                background-color: white;
+                padding: 3rem !important;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                margin-top: 2rem;
+                max-width: 800px;
             }
 
             /* Hide Streamlit Branding */
@@ -83,76 +93,47 @@ def main():
 
             /* Buttons */
             .stButton > button {
-                background-color: #2563EB; /* Royal Blue */
+                background-color: #001f3f; /* Navy Blue */
                 color: white;
-                border-radius: 50px;
-                padding: 12px 28px;
+                border-radius: 12px;
+                padding: 12px 24px;
                 border: none;
-                box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 transition: all 0.3s ease;
                 font-weight: 600;
                 font-size: 16px;
                 width: 100%;
             }
             .stButton > button:hover {
-                background-color: #1d4ed8;
-                box-shadow: 0 6px 14px rgba(37, 99, 235, 0.3);
+                background-color: #003366;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
                 transform: translateY(-2px);
+                color: white;
             }
 
+            /* Upload Area */
+            [data-testid="stFileUploader"] {
+                background-color: #f8f9fa;
+                border: 1px dashed #ced4da;
+                border-radius: 15px;
+                padding: 20px;
+            }
+            
             /* Inputs */
             .stTextInput > div > div > input {
-                border-radius: 12px;
+                border-radius: 10px;
                 border: 1px solid #e0e0e0;
                 padding: 10px 15px;
             }
             
-            /* File Uploader */
-            .stFileUploader > div > div > button {
-                background-color: #f0f9ff;
-                color: #2563EB;
-                border: 1px solid #2563EB;
-            }
-
-            /* Custom Header */
-            .custom-header {
-                text-align: center;
-                padding: 3rem 0 2rem 0;
-            }
+            /* Custom Header Styling */
             .custom-header h1 {
                 color: #1e293b;
                 font-weight: 800;
-                font-size: 3.5rem;
-                margin-bottom: 0.5rem;
                 letter-spacing: -1px;
             }
             .custom-header p {
                 color: #64748b;
-                font-size: 1.2rem;
-                font-weight: 400;
-            }
-            
-            /* Card Style Container */
-            .css-1r6slb0 {
-                background-color: white;
-                padding: 2rem;
-                border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            }
-            
-            /* Info Box */
-            .stAlert {
-                background-color: #eff6ff;
-                border: 1px solid #bfdbfe;
-                color: #1e40af;
-                border-radius: 12px;
-            }
-            
-            /* Text Area */
-            .stTextArea textarea {
-                border-radius: 12px;
-                border: 1px solid #e2e8f0;
-                font-family: 'Inter', sans-serif;
             }
         </style>
     """, unsafe_allow_html=True)
