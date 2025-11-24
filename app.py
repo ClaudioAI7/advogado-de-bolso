@@ -115,7 +115,7 @@ def main():
                     # 2. Gerar Mensagem de Negociação
                     st.markdown("---")
                     st.subheader("💬 Mensagem Pronta para Negociação")
-                    st.info("🎁 **Bônus Exclusivo:** Sabemos que confrontar o proprietário ou imobiliária pode ser desconfortável. Para você não se estressar, nossa IA preparou o texto ideal — formal, educado e firme — baseado exatamente nos problemas encontrados acima. É só copiar e enviar!")
+                    st.info("🎁 **Bônus Exclusivo:** Sabemos que confrontar o proprietário ou imobiliária pode ser desconfortável. Para você não se estressar, nosso aplicativo preparou o texto ideal — formal, educado e firme — baseado exatamente nos problemas encontrados acima. É só copiar e enviar!")
                     with st.spinner("Escrevendo mensagem de negociação..."):
                         try:
                             model = genai.GenerativeModel('gemini-flash-latest')
