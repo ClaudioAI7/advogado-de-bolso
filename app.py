@@ -4,9 +4,11 @@ import pypdf
 import os
 
 # --- Configuration ---
-# In a real scenario, use st.secrets or environment variables.
-# For this task, we use the provided placeholder or a mock if it fails.
-API_KEY = "AIzaSyDQNsJuVruZKFzF0jX2Hw4786Gy9KGbpx0" 
+# Security: Read API Key from Streamlit Secrets
+if "GOOGLE_API_KEY" in st.secrets:
+    genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+else:
+    st.error("Erro de Configuração: API Key não encontrada nos Secrets.")
 
 # --- Helper Functions ---
 
@@ -22,23 +24,8 @@ def extract_text_from_pdf(uploaded_file):
         return None
 
 def analyze_contract(text):
-    # Mock analysis if API key is the placeholder or invalid (for testing purposes without a real key)
-    if "AIza" in API_KEY and "COLE_SUA_CHAVE" in API_KEY:
-         return """
-        **ANÁLISE SIMULADA (Sem API Key Válida)**
-        
-        **Cláusulas Perigosas:**
-        *   Cláusula 5: Multa rescisória de 50% do valor total do contrato (Abusiva).
-        
-        **Pontos de Atenção:**
-        *   O índice de reajuste não está claramente definido.
-        
-        **Veredito Final:**
-        *   Não assine sem revisar a Cláusula 5.
-        """
-
     try:
-        genai.configure(api_key=API_KEY)
+        # Model is already configured globally
         model = genai.GenerativeModel('gemini-flash-latest')
         prompt = f"""
         Você é um advogado especialista em contratos de aluguel. Analise o seguinte contrato e identifique:
@@ -52,7 +39,6 @@ def analyze_contract(text):
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
-        # Fallback if the API call fails (e.g., bad key format even if changed)
         return f"""
         **Erro na Análise da IA:** {str(e)}
         
