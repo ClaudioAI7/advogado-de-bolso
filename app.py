@@ -59,7 +59,7 @@ def analyze_contract(text):
 def main():
     st.set_page_config(page_title="Advogado de Bolso", page_icon="⚖️", layout="wide")
 
-    # --- CUSTOM CSS INJECTION (CLASSIC LAW FIRM STYLE) ---
+    # --- CUSTOM CSS INJECTION (LUXURY LAW FIRM STYLE) ---
     st.markdown("""
         <style>
             /* Import Google Fonts */
@@ -68,16 +68,16 @@ def main():
             /* Global Settings */
             html, body, [class*="css"] {
                 font-family: 'Lato', sans-serif;
-                color: #334155;
+                color: #f8fafc; /* Light text for dark background */
             }
             
             h1, h2, h3 {
                 font-family: 'Playfair Display', serif;
             }
 
-            /* Background */
+            /* Background - Midnight Blue */
             .stApp {
-                background-color: #f8fafc;
+                background-color: #0f172a;
             }
 
             /* Hide Streamlit Branding */
@@ -85,158 +85,163 @@ def main():
             footer {visibility: hidden;}
             header {visibility: hidden;}
 
-            /* Header Section */
-            .header-bar {
-                background-color: #1e293b; /* Navy Blue */
-                padding: 1.5rem 0;
-                text-align: center;
-                margin-bottom: 3rem;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            }
-            .header-logo {
-                font-size: 2.5rem;
-                margin-right: 10px;
-                vertical-align: middle;
-            }
-            .header-title {
-                font-family: 'Playfair Display', serif;
-                font-size: 2rem;
-                color: #ffffff;
-                font-weight: 600;
-                letter-spacing: 1px;
-                vertical-align: middle;
-            }
-
-            /* Hero / Promise */
+            /* Hero Section */
             .hero-container {
                 text-align: center;
-                max-width: 800px;
-                margin: 0 auto 3rem auto;
-                padding: 0 1rem;
+                padding: 4rem 1rem 3rem 1rem;
+                max-width: 900px;
+                margin: 0 auto;
+            }
+            .hero-logo {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+                display: block;
+                color: #c5a059; /* Gold */
+            }
+            .hero-title {
+                font-size: 3rem;
+                font-weight: 700;
+                color: #ffffff;
+                margin-bottom: 1rem;
+                letter-spacing: 1px;
             }
             .hero-subtitle {
                 font-family: 'Playfair Display', serif;
-                font-size: 1.8rem;
-                color: #1e293b;
-                line-height: 1.4;
+                font-size: 1.5rem;
+                color: #94a3b8;
                 font-weight: 400;
+                line-height: 1.6;
+                margin-bottom: 3rem;
             }
 
             /* Login Card */
             .login-card {
-                background-color: white;
+                background-color: #ffffff;
                 padding: 3rem;
-                border: 1px solid #e2e8f0;
-                border-top: 4px solid #c29d59; /* Gold Accent */
+                border-radius: 4px;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
                 max-width: 450px;
                 margin: 0 auto;
-                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-            }
-            .login-label {
                 text-align: center;
-                font-size: 0.9rem;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                color: #64748b;
-                margin-bottom: 1.5rem;
+            }
+            .login-title {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.5rem;
+                color: #1e293b; /* Dark Blue Text */
+                margin-bottom: 2rem;
+                font-weight: 600;
             }
 
             /* Inputs */
             .stTextInput > div > div > input {
                 border-radius: 2px;
-                border: 1px solid #cbd5e1;
-                padding: 10px 15px;
-                font-family: 'Lato', sans-serif;
+                border: 1px solid #c5a059; /* Gold Border */
+                padding: 12px 16px;
+                font-size: 16px;
+                color: #1e293b;
+                background-color: #ffffff;
             }
             .stTextInput > div > div > input:focus {
-                border-color: #c29d59;
-                box-shadow: 0 0 0 1px #c29d59;
+                border-color: #b08d45;
+                box-shadow: 0 0 0 1px #b08d45;
             }
 
             /* Buttons */
             .stButton > button {
-                background-color: #c29d59; /* Gold */
+                background-color: #c5a059; /* Gold Metallic */
                 color: white;
-                border-radius: 4px;
-                padding: 10px 30px;
+                border-radius: 2px;
+                padding: 14px 32px;
                 border: none;
                 font-family: 'Lato', sans-serif;
                 text-transform: uppercase;
-                letter-spacing: 1px;
+                letter-spacing: 2px;
                 font-weight: 700;
                 font-size: 14px;
                 width: 100%;
-                margin-top: 1rem;
-                transition: background-color 0.3s;
+                margin-top: 1.5rem;
+                transition: all 0.3s ease;
             }
             .stButton > button:hover {
-                background-color: #a38246;
+                background-color: #b08d45; /* Darker Gold */
                 color: white;
+                transform: translateY(-1px);
             }
 
-            /* Footer Icons */
-            .footer-section {
+            /* Authority Section */
+            .authority-section {
                 margin-top: 5rem;
-                border-top: 1px solid #e2e8f0;
                 padding-top: 3rem;
+                border-top: 1px solid #1e293b;
             }
-            .footer-item {
+            .authority-item {
                 text-align: center;
+                padding: 1rem;
             }
-            .footer-icon {
-                color: #c29d59;
+            .authority-icon {
+                color: #c5a059;
                 font-size: 2rem;
                 margin-bottom: 1rem;
                 display: block;
             }
-            .footer-title {
+            .authority-title {
                 font-family: 'Playfair Display', serif;
-                color: #1e293b;
+                color: #f8fafc;
                 font-size: 1.1rem;
                 margin-bottom: 0.5rem;
+                font-weight: 400;
+            }
+
+            /* Footer */
+            .footer-text {
+                text-align: center;
+                color: #64748b;
+                font-size: 0.8rem;
+                margin-top: 5rem;
+                padding-bottom: 2rem;
+                font-family: 'Lato', sans-serif;
+                letter-spacing: 1px;
             }
             
-            /* Upload Area */
+            /* Upload Area (Logged In) */
              [data-testid="stFileUploader"] {
-                background-color: #f8fafc;
-                border: 1px solid #cbd5e1;
+                background-color: #1e293b;
+                border: 1px solid #334155;
                 border-radius: 4px;
-                padding: 20px;
+                padding: 30px;
+                text-align: center;
+            }
+            [data-testid="stFileUploader"] div {
+                color: #cbd5e1;
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # 1. Header (Always Visible)
-    st.markdown("""
-        <div class="header-bar">
-            <span class="header-logo">⚖️</span>
-            <span class="header-title">Advogado de Bolso</span>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # 2. Session State Logic
+    # 1. Session State Logic
     if 'logged_in' not in st.session_state:
         st.session_state.logged_in = False
 
-    # 3. View Controller
+    # 2. View Controller
     if not st.session_state.logged_in:
         # --- LANDING PAGE VIEW ---
         
         # Hero Section
         st.markdown("""
             <div class="hero-container">
-                <div class="hero-subtitle">A plataforma que blinda seu contrato de aluguel contra multas e cláusulas abusivas.</div>
+                <span class="hero-logo">⚖️</span>
+                <h1 class="hero-title">Advogado de Bolso</h1>
+                <h2 class="hero-subtitle">Blindagem jurídica para seu contrato de aluguel. Identifique riscos financeiros e cláusulas abusivas antes de assinar.</h2>
             </div>
         """, unsafe_allow_html=True)
 
         # Login Area (Card)
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            st.markdown('<div class="login-card"><div class="login-label">Acesso Restrito</div>', unsafe_allow_html=True)
+            st.markdown('<div class="login-card"><div class="login-title">Acesso ao Sistema</div>', unsafe_allow_html=True)
             
             password = st.text_input("Senha", type="password", label_visibility="collapsed", placeholder="Chave de Acesso")
             
-            if st.button("Entrar"):
+            if st.button("ENTRAR"):
                 if password == "ALUGUEL2025":
                     st.session_state.logged_in = True
                     st.rerun()
@@ -245,39 +250,46 @@ def main():
             
             st.markdown('</div>', unsafe_allow_html=True)
 
-        # Footer Section
-        st.markdown('<div class="footer-section"></div>', unsafe_allow_html=True)
+        # Authority Section
+        st.markdown('<div class="authority-section"></div>', unsafe_allow_html=True)
         
         f1, f2, f3 = st.columns(3)
         with f1:
             st.markdown("""
-                <div class="footer-item">
-                    <span class="footer-icon">⚖️</span>
-                    <div class="footer-title">Análise Técnica</div>
+                <div class="authority-item">
+                    <span class="authority-icon">⚖️</span>
+                    <div class="authority-title">Compliance com a Lei do Inquilinato</div>
                 </div>
             """, unsafe_allow_html=True)
         with f2:
             st.markdown("""
-                <div class="footer-item">
-                    <span class="footer-icon">🛡️</span>
-                    <div class="footer-title">Segurança Jurídica</div>
+                <div class="authority-item">
+                    <span class="authority-icon">🛡️</span>
+                    <div class="authority-title">Análise de Risco Financeiro</div>
                 </div>
             """, unsafe_allow_html=True)
         with f3:
             st.markdown("""
-                <div class="footer-item">
-                    <span class="footer-icon">🤝</span>
-                    <div class="footer-title">Negociação Pronta</div>
+                <div class="authority-item">
+                    <span class="authority-icon">📝</span>
+                    <div class="authority-title">Minuta de Negociação Inclusa</div>
                 </div>
             """, unsafe_allow_html=True)
+
+        # Footer
+        st.markdown("""
+            <div class="footer-text">
+                © 2025 Advogado de Bolso • Segurança de Dados Bancária (SSL)
+            </div>
+        """, unsafe_allow_html=True)
 
     else:
         # --- APP INTERFACE (LOGGED IN) ---
         
         st.markdown("""
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h2 style="font-family: 'Playfair Display', serif; color: #1e293b;">Análise Contratual</h2>
-                <p style="color: #64748b;">Submeta o documento para revisão jurídica automatizada.</p>
+            <div style="text-align: center; margin-bottom: 3rem; margin-top: 2rem;">
+                <h2 style="font-family: 'Playfair Display', serif; color: #ffffff; font-size: 2.5rem;">Análise Contratual</h2>
+                <p style="color: #94a3b8; font-size: 1.1rem;">Submeta o documento para revisão técnica.</p>
             </div>
         """, unsafe_allow_html=True)
 
@@ -292,7 +304,7 @@ def main():
                 if text:
                     st.success(f"Documento processado com êxito. ({len(text)} caracteres)")
                     
-                    if st.button("Iniciar Análise Jurídica"):
+                    if st.button("INICIAR ANÁLISE TÉCNICA"):
                         with st.spinner("Examinando cláusulas contratuais..."):
                             # 1. Análise Técnica
                             analysis = analyze_contract(text)
