@@ -59,7 +59,7 @@ def analyze_contract(text):
 def main():
     st.set_page_config(page_title="Advogado de Bolso", page_icon="⚖️", layout="wide")
 
-    # --- CUSTOM CSS INJECTION (BOUTIQUE LAW FIRM STYLE) ---
+    # --- CUSTOM CSS INJECTION (VISUAL CORRECTION) ---
     st.markdown("""
         <style>
             /* Import Google Fonts */
@@ -75,10 +75,12 @@ def main():
                 font-family: 'Playfair Display', serif;
             }
 
-            /* Background - Deep Petrol Blue */
+            /* Background Image with Overlay */
             .stApp {
-                background-color: #0d1b2a;
-                background-image: radial-gradient(circle at 50% 0%, #1b263b 0%, #0d1b2a 70%);
+                background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
             }
 
             /* Hide Streamlit Branding */
@@ -89,39 +91,45 @@ def main():
             /* Hero Section */
             .hero-container {
                 text-align: center;
-                padding: 6rem 1rem 4rem 1rem;
-                max-width: 800px;
+                padding: 10vh 1rem 4rem 1rem;
+                max-width: 900px;
                 margin: 0 auto;
             }
             .hero-title {
+                font-family: 'Playfair Display', serif;
                 font-size: 3.5rem;
-                font-weight: 400;
-                color: #ffffff;
+                font-weight: 700;
+                color: #ffffff !important;
                 margin-bottom: 1rem;
-                letter-spacing: 2px;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
             }
             .hero-subtitle {
                 font-family: 'Montserrat', sans-serif;
-                font-size: 1.1rem;
-                color: #c5a059; /* Gold */
+                font-size: 1.2rem;
+                color: #c5a059 !important; /* Gold */
                 text-transform: uppercase;
-                letter-spacing: 4px;
-                margin-bottom: 4rem;
+                letter-spacing: 3px;
+                margin-bottom: 3rem;
+                font-weight: 600;
             }
 
-            /* Login Container - Minimalist */
+            /* Login Container - Glassmorphism */
             .login-container {
                 max-width: 400px;
                 margin: 0 auto;
                 text-align: center;
-                padding: 2rem;
+                padding: 3rem;
+                background-color: rgba(255, 255, 255, 0.05);
+                border: 1px solid #c5a059;
+                border-radius: 4px;
+                backdrop-filter: blur(5px);
             }
 
             /* Inputs - Minimalist Transparent */
             .stTextInput > div > div > input {
                 background-color: transparent;
                 border: none;
-                border-bottom: 2px solid #c5a059; /* Gold Border */
+                border-bottom: 1px solid #c5a059; /* Gold Border */
                 border-radius: 0;
                 padding: 15px 5px;
                 font-size: 18px;
@@ -135,52 +143,50 @@ def main():
             }
             /* Placeholder color hack */
             .stTextInput > div > div > input::placeholder {
-                color: #64748b;
+                color: #94a3b8;
             }
 
-            /* Buttons - Rectangular Gold */
+            /* Buttons - Gold Solid */
             .stButton > button {
                 background-color: #c5a059; /* Gold */
-                color: #0d1b2a; /* Dark Text */
-                border-radius: 0px; /* Rectangular */
+                color: #0f172a; /* Dark Text */
+                border-radius: 2px;
                 padding: 16px 40px;
                 border: none;
                 font-family: 'Montserrat', sans-serif;
                 text-transform: uppercase;
-                letter-spacing: 3px;
-                font-weight: 600;
+                letter-spacing: 2px;
+                font-weight: 700;
                 font-size: 14px;
                 width: 100%;
                 margin-top: 2rem;
-                transition: all 0.4s ease;
+                transition: all 0.3s ease;
             }
             .stButton > button:hover {
                 background-color: #ffffff;
-                color: #0d1b2a;
-                letter-spacing: 5px; /* Expand on hover */
+                color: #0f172a;
+                transform: translateY(-2px);
             }
 
             /* Footer */
             .footer-text {
                 text-align: center;
-                color: #415a77;
-                font-size: 0.75rem;
+                color: #64748b;
+                font-size: 0.8rem;
                 margin-top: 6rem;
                 font-family: 'Montserrat', sans-serif;
-                letter-spacing: 1px;
-                text-transform: uppercase;
             }
             
             /* Upload Area (Logged In) */
              [data-testid="stFileUploader"] {
-                background-color: rgba(255,255,255,0.03);
-                border: 1px solid #1b263b;
-                border-radius: 0px;
+                background-color: rgba(15, 23, 42, 0.8);
+                border: 1px solid #334155;
+                border-radius: 4px;
                 padding: 40px;
                 text-align: center;
             }
             [data-testid="stFileUploader"] div {
-                color: #94a3b8;
+                color: #cbd5e1;
             }
             
             /* Analysis Text */
@@ -188,6 +194,10 @@ def main():
                 color: #e2e8f0;
                 font-family: 'Montserrat', sans-serif;
                 line-height: 1.8;
+                background-color: rgba(15, 23, 42, 0.6);
+                padding: 2rem;
+                border-radius: 4px;
+                border-left: 4px solid #c5a059;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -208,14 +218,14 @@ def main():
             </div>
         """, unsafe_allow_html=True)
 
-        # Login Area (Minimalist)
+        # Login Area (Glass Card)
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
             st.markdown('<div class="login-container">', unsafe_allow_html=True)
             
             password = st.text_input("Senha", type="password", label_visibility="collapsed", placeholder="CHAVE DE ACESSO")
             
-            if st.button("ACESSAR SISTEMA"):
+            if st.button("ENTRAR"):
                 if password == "ALUGUEL2025":
                     st.session_state.logged_in = True
                     st.rerun()
@@ -236,8 +246,8 @@ def main():
         
         st.markdown("""
             <div style="text-align: center; margin-bottom: 4rem; margin-top: 2rem;">
-                <h2 style="font-family: 'Playfair Display', serif; color: #c5a059; font-size: 2.5rem; font-weight: 400;">Análise Contratual</h2>
-                <p style="color: #94a3b8; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase;">Portal do Cliente</p>
+                <h2 style="font-family: 'Playfair Display', serif; color: #ffffff; font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Portal do Cliente</h2>
+                <p style="color: #c5a059; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Análise Contratual Segura</p>
             </div>
         """, unsafe_allow_html=True)
 
@@ -246,14 +256,14 @@ def main():
             uploaded_file = st.file_uploader("Carregar Documento (PDF)", type="pdf")
 
             if uploaded_file is not None:
-                with st.spinner("Processando..."):
+                with st.spinner("Processando documento..."):
                     text = extract_text_from_pdf(uploaded_file)
                 
                 if text:
-                    st.success(f"Documento carregado. ({len(text)} caracteres)")
+                    st.success(f"Documento recebido. ({len(text)} caracteres)")
                     
-                    if st.button("EXECUTAR ANÁLISE"):
-                        with st.spinner("Realizando auditoria jurídica..."):
+                    if st.button("INICIAR AUDITORIA"):
+                        with st.spinner("Realizando análise jurídica..."):
                             # 1. Análise Técnica
                             analysis = analyze_contract(text)
                             
