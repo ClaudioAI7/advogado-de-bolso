@@ -59,11 +59,11 @@ def analyze_contract(text):
 def main():
     st.set_page_config(page_title="Advogado de Bolso", page_icon="⚖️", layout="wide")
 
-    # --- CUSTOM CSS INJECTION (VISUAL CORRECTION) ---
+    # --- CUSTOM CSS INJECTION (TM ASSOCIADOS STYLE CLONE) ---
     st.markdown("""
         <style>
             /* Import Google Fonts */
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
             /* Global Settings */
             html, body, [class*="css"] {
@@ -75,12 +75,9 @@ def main():
                 font-family: 'Playfair Display', serif;
             }
 
-            /* Background Image with Overlay */
+            /* Background - Deep Corporate Blue (Extracted from TM Associados) */
             .stApp {
-                background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1920&auto=format&fit=crop');
-                background-size: cover;
-                background-position: center;
-                background-attachment: fixed;
+                background-color: #122847;
             }
 
             /* Hide Streamlit Branding */
@@ -91,97 +88,95 @@ def main():
             /* Hero Section */
             .hero-container {
                 text-align: center;
-                padding: 10vh 1rem 4rem 1rem;
+                padding: 12vh 1rem 4rem 1rem;
                 max-width: 900px;
                 margin: 0 auto;
             }
             .hero-title {
                 font-family: 'Playfair Display', serif;
                 font-size: 3.5rem;
-                font-weight: 700;
-                color: #ffffff !important;
-                margin-bottom: 1rem;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                font-weight: 400;
+                color: #ffffff;
+                margin-bottom: 1.5rem;
+                letter-spacing: 0.5px;
             }
             .hero-subtitle {
                 font-family: 'Montserrat', sans-serif;
-                font-size: 1.2rem;
-                color: #c5a059 !important; /* Gold */
+                font-size: 1rem;
+                color: #c5a059; /* Gold Accent */
                 text-transform: uppercase;
                 letter-spacing: 3px;
-                margin-bottom: 3rem;
-                font-weight: 600;
+                margin-bottom: 4rem;
+                font-weight: 500;
             }
 
-            /* Login Container - Glassmorphism */
+            /* Login Container - Minimalist Contact Form Style */
             .login-container {
-                max-width: 400px;
+                max-width: 380px;
                 margin: 0 auto;
                 text-align: center;
-                padding: 3rem;
-                background-color: rgba(255, 255, 255, 0.05);
-                border: 1px solid #c5a059;
-                border-radius: 4px;
-                backdrop-filter: blur(5px);
+                padding: 2rem;
             }
 
-            /* Inputs - Minimalist Transparent */
+            /* Inputs - Transparent with Bottom Border */
             .stTextInput > div > div > input {
                 background-color: transparent;
                 border: none;
-                border-bottom: 1px solid #c5a059; /* Gold Border */
+                border-bottom: 1px solid #475bb2; /* Lighter Blue for border */
                 border-radius: 0;
-                padding: 15px 5px;
-                font-size: 18px;
+                padding: 12px 0px;
+                font-size: 16px;
                 color: #ffffff;
                 text-align: center;
                 font-family: 'Montserrat', sans-serif;
+                transition: border-color 0.3s;
             }
             .stTextInput > div > div > input:focus {
                 box-shadow: none;
-                border-bottom: 2px solid #ffffff;
+                border-bottom: 1px solid #c5a059; /* Gold on Focus */
             }
-            /* Placeholder color hack */
+            /* Placeholder styling */
             .stTextInput > div > div > input::placeholder {
-                color: #94a3b8;
+                color: #64748b;
+                font-weight: 300;
             }
 
-            /* Buttons - Gold Solid */
+            /* Buttons - Solid Gold Rectangle */
             .stButton > button {
                 background-color: #c5a059; /* Gold */
-                color: #0f172a; /* Dark Text */
-                border-radius: 2px;
-                padding: 16px 40px;
+                color: #122847; /* Dark Blue Text */
+                border-radius: 0px;
+                padding: 14px 36px;
                 border: none;
                 font-family: 'Montserrat', sans-serif;
                 text-transform: uppercase;
                 letter-spacing: 2px;
-                font-weight: 700;
-                font-size: 14px;
+                font-weight: 600;
+                font-size: 13px;
                 width: 100%;
-                margin-top: 2rem;
+                margin-top: 2.5rem;
                 transition: all 0.3s ease;
             }
             .stButton > button:hover {
                 background-color: #ffffff;
-                color: #0f172a;
-                transform: translateY(-2px);
+                color: #122847;
             }
 
             /* Footer */
             .footer-text {
                 text-align: center;
-                color: #64748b;
-                font-size: 0.8rem;
-                margin-top: 6rem;
+                color: #475bb2;
+                font-size: 0.75rem;
+                margin-top: 8rem;
                 font-family: 'Montserrat', sans-serif;
+                letter-spacing: 1px;
             }
             
             /* Upload Area (Logged In) */
              [data-testid="stFileUploader"] {
-                background-color: rgba(15, 23, 42, 0.8);
-                border: 1px solid #334155;
-                border-radius: 4px;
+                background-color: rgba(255, 255, 255, 0.03);
+                border: 1px solid #475bb2;
+                border-radius: 0px;
                 padding: 40px;
                 text-align: center;
             }
@@ -194,10 +189,14 @@ def main():
                 color: #e2e8f0;
                 font-family: 'Montserrat', sans-serif;
                 line-height: 1.8;
-                background-color: rgba(15, 23, 42, 0.6);
-                padding: 2rem;
-                border-radius: 4px;
-                border-left: 4px solid #c5a059;
+                font-weight: 300;
+            }
+            
+            /* Section Dividers */
+            hr {
+                border-color: #475bb2;
+                opacity: 0.3;
+                margin: 3rem 0;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -214,30 +213,30 @@ def main():
         st.markdown("""
             <div class="hero-container">
                 <h1 class="hero-title">Advogado de Bolso</h1>
-                <div class="hero-subtitle">Advocacia Digital Inteligente</div>
+                <div class="hero-subtitle">Inteligência Jurídica Digital</div>
             </div>
         """, unsafe_allow_html=True)
 
-        # Login Area (Glass Card)
+        # Login Area
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
             st.markdown('<div class="login-container">', unsafe_allow_html=True)
             
-            password = st.text_input("Senha", type="password", label_visibility="collapsed", placeholder="CHAVE DE ACESSO")
+            password = st.text_input("Senha", type="password", label_visibility="collapsed", placeholder="CÓDIGO DE ACESSO")
             
             if st.button("ENTRAR"):
                 if password == "ALUGUEL2025":
                     st.session_state.logged_in = True
                     st.rerun()
                 else:
-                    st.error("Acesso negado.")
+                    st.error("Acesso não autorizado.")
             
             st.markdown('</div>', unsafe_allow_html=True)
 
         # Footer
         st.markdown("""
             <div class="footer-text">
-                © 2025 Advogado de Bolso • Private Client Services
+                © 2025 TM ASSOCIADOS STYLE • SÃO PAULO • BRASIL
             </div>
         """, unsafe_allow_html=True)
 
@@ -246,24 +245,24 @@ def main():
         
         st.markdown("""
             <div style="text-align: center; margin-bottom: 4rem; margin-top: 2rem;">
-                <h2 style="font-family: 'Playfair Display', serif; color: #ffffff; font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">Portal do Cliente</h2>
-                <p style="color: #c5a059; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Análise Contratual Segura</p>
+                <h2 style="font-family: 'Playfair Display', serif; color: #ffffff; font-size: 2.2rem; font-weight: 400;">Análise de Contratos</h2>
+                <p style="color: #c5a059; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 1rem;">Área do Cliente</p>
             </div>
         """, unsafe_allow_html=True)
 
         # Main Content
         with st.container():
-            uploaded_file = st.file_uploader("Carregar Documento (PDF)", type="pdf")
+            uploaded_file = st.file_uploader("Upload de Arquivo (PDF)", type="pdf")
 
             if uploaded_file is not None:
-                with st.spinner("Processando documento..."):
+                with st.spinner("Processando..."):
                     text = extract_text_from_pdf(uploaded_file)
                 
                 if text:
-                    st.success(f"Documento recebido. ({len(text)} caracteres)")
+                    st.success(f"Arquivo recebido. ({len(text)} caracteres)")
                     
-                    if st.button("INICIAR AUDITORIA"):
-                        with st.spinner("Realizando análise jurídica..."):
+                    if st.button("INICIAR ANÁLISE JURÍDICA"):
+                        with st.spinner("Realizando auditoria..."):
                             # 1. Análise Técnica
                             analysis = analyze_contract(text)
                             
@@ -273,7 +272,7 @@ def main():
                             # 2. Gerar Mensagem de Negociação
                             st.markdown("---")
                             st.markdown("### Minuta de Negociação")
-                            st.info("Texto formal para comunicação com a contraparte.")
+                            st.info("Texto sugerido para comunicação formal.")
                             
                             with st.spinner("Redigindo minuta..."):
                                 try:
