@@ -59,191 +59,89 @@ def analyze_contract(text):
 def main():
     st.set_page_config(page_title="Advogado de Bolso", page_icon="⚖️", layout="wide")
 
-    # --- LUXURY FRONTEND CSS INJECTION ---
+    # --- MANUAL VISUAL CODE REPLACEMENT ---
     st.markdown("""
-        <style>
-            /* Import Google Fonts */
-            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&display=swap');
 
-            /* Global Reset & Settings */
-            html, body, [class*="css"] {
-                font-family: 'Montserrat', sans-serif;
-                color: #e2e8f0;
-                background-color: #0b1120; /* Deep Navy Blue */
-            }
-            
-            h1, h2, h3 {
-                font-family: 'Playfair Display', serif;
-            }
+        /* 1. FUNDO COM IMAGEM E SOBREPOSIÇÃO ESCURA (IGUAL TM ASSOCIADOS) */
+        .stApp {
+            background-image: linear-gradient(rgba(10, 20, 30, 0.85), rgba(10, 20, 30, 0.95)),
+                              url('https://images.unsplash.com/photo-1589829085413-56de8ae18c73?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
 
-            /* Background Animation - Subtle Gradient Pulse */
-            .stApp {
-                background: linear-gradient(-45deg, #0b1120, #1a2332, #0f172a, #0b1120);
-                background-size: 400% 400%;
-                animation: gradientBG 15s ease infinite;
-            }
-            @keyframes gradientBG {
-                0% { background-position: 0% 50%; }
-                50% { background-position: 100% 50%; }
-                100% { background-position: 0% 50%; }
-            }
+        /* 2. TIPOGRAFIA DE LUXO */
+        h1 {
+            font-family: 'Playfair Display', serif !important;
+            color: #ffffff !important;
+            font-size: 3.8rem !important;
+            text-align: center;
+            font-weight: 400 !important;
+            letter-spacing: 1px;
+            margin-top: 50px !important;
+        }
 
-            /* Hide Streamlit Branding */
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            header {visibility: hidden;}
+        h2 {
+            font-family: 'Montserrat', sans-serif !important;
+            color: #c5a059 !important; /* DOURADO TM */
+            font-size: 1rem !important;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 600 !important;
+            margin-bottom: 60px !important;
+        }
 
-            /* --- HERO SECTION (HTML INJECTION) --- */
-            .hero-wrapper {
-                text-align: center;
-                padding: 15vh 1rem 2rem 1rem;
-                max-width: 1000px;
-                margin: 0 auto;
-                animation: fadeIn 1.5s ease-out;
-            }
-            .hero-logo {
-                font-size: 4rem;
-                display: block;
-                margin-bottom: 1rem;
-                color: #c5a059;
-                text-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
-            }
-            .hero-title {
-                font-family: 'Playfair Display', serif;
-                font-size: 4rem;
-                font-weight: 400;
-                color: #ffffff;
-                margin-bottom: 1rem;
-                letter-spacing: 1px;
-            }
-            .hero-subtitle {
-                font-family: 'Montserrat', sans-serif;
-                font-size: 1.1rem;
-                color: #c5a059; /* Gold */
-                text-transform: uppercase;
-                letter-spacing: 4px;
-                margin-bottom: 4rem;
-                font-weight: 500;
-                border-top: 1px solid rgba(197, 160, 89, 0.3);
-                border-bottom: 1px solid rgba(197, 160, 89, 0.3);
-                display: inline-block;
-                padding: 10px 20px;
-            }
+        /* 3. CARD DE LOGIN (Borda Dourada Fina) */
+        div[data-testid="stVerticalBlock"] > div:has(input) {
+            background: rgba(10, 20, 30, 0.6);
+            border: 1px solid #c5a059;
+            padding: 40px;
+            border-radius: 0px; /* Quadrado elegante */
+            max-width: 500px;
+            margin: 0 auto;
+        }
 
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
+        /* 4. INPUT E BOTÃO */
+        p, label {
+            color: #c5a059 !important; /* Labels Dourados */
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+        }
 
-            /* --- LOGIN CARD (GLASSMORPHISM) --- */
-            .login-card-wrapper {
-                background: rgba(11, 17, 32, 0.7);
-                backdrop-filter: blur(10px);
-                -webkit-backdrop-filter: blur(10px);
-                border: 1px solid rgba(197, 160, 89, 0.3); /* Gold Border */
-                padding: 3rem;
-                border-radius: 2px;
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-                max-width: 400px;
-                margin: 0 auto;
-                text-align: center;
-            }
-            
-            /* --- WIDGET STYLING (MASKING STREAMLIT) --- */
-            
-            /* Inputs */
-            .stTextInput > div > div > input {
-                background-color: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(255, 255, 255, 0.1);
-                border-radius: 0;
-                padding: 15px;
-                font-size: 16px;
-                color: #ffffff;
-                text-align: center;
-                font-family: 'Montserrat', sans-serif;
-                transition: all 0.3s ease;
-            }
-            .stTextInput > div > div > input:focus {
-                background-color: rgba(255, 255, 255, 0.1);
-                border-color: #c5a059; /* Gold Focus */
-                box-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
-            }
-            .stTextInput > div > div > input::placeholder {
-                color: #64748b;
-                letter-spacing: 1px;
-            }
+        input.st-ai {
+            background-color: transparent !important;
+            color: white !important;
+            border: none !important;
+            border-bottom: 1px solid #c5a059 !important; /* Apenas linha embaixo */
+            border-radius: 0px !important;
+        }
 
-            /* Buttons */
-            .stButton > button {
-                background: linear-gradient(45deg, #c5a059, #d4af37);
-                color: #0b1120;
-                border-radius: 0px;
-                padding: 16px 40px;
-                border: none;
-                font-family: 'Montserrat', sans-serif;
-                text-transform: uppercase;
-                letter-spacing: 2px;
-                font-weight: 600;
-                font-size: 14px;
-                width: 100%;
-                margin-top: 1rem;
-                transition: all 0.4s ease;
-                box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
-            }
-            .stButton > button:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(197, 160, 89, 0.5);
-                letter-spacing: 3px;
-                color: #ffffff;
-            }
+        button {
+            background-color: #c5a059 !important;
+            color: #0a141e !important;
+            border-radius: 0px !important;
+            font-family: 'Montserrat', sans-serif !important;
+            font-weight: 600 !important;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none !important;
+            padding: 12px 24px !important;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #ffffff !important;
+            color: #c5a059 !important;
+        }
 
-            /* Footer */
-            .custom-footer {
-                text-align: center;
-                color: #475569;
-                font-size: 0.7rem;
-                margin-top: 6rem;
-                font-family: 'Montserrat', sans-serif;
-                letter-spacing: 1px;
-                text-transform: uppercase;
-            }
-            
-            /* --- APP INTERFACE (LOGGED IN) --- */
-            .app-header {
-                text-align: center;
-                margin-bottom: 3rem;
-                padding-top: 2rem;
-                border-bottom: 1px solid rgba(197, 160, 89, 0.2);
-                padding-bottom: 2rem;
-            }
-            
-            /* Upload Area */
-             [data-testid="stFileUploader"] {
-                background-color: rgba(255, 255, 255, 0.02);
-                border: 1px dashed rgba(197, 160, 89, 0.3);
-                border-radius: 0px;
-                padding: 50px;
-                text-align: center;
-                transition: border-color 0.3s;
-            }
-            [data-testid="stFileUploader"]:hover {
-                border-color: #c5a059;
-            }
-            [data-testid="stFileUploader"] div {
-                color: #94a3b8;
-            }
-            
-            /* Analysis Text Box */
-            .analysis-box {
-                background-color: rgba(11, 17, 32, 0.8);
-                border-left: 3px solid #c5a059;
-                padding: 2rem;
-                margin-top: 1rem;
-                font-weight: 300;
-                line-height: 1.8;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            }
-        </style>
+        /* ESCONDER ELEMENTOS PADRÃO */
+        header {visibility: hidden;}
+        footer {visibility: hidden;}
+
+    </style>
     """, unsafe_allow_html=True)
 
     # 1. Session State Logic
@@ -254,74 +152,52 @@ def main():
     if not st.session_state.logged_in:
         # --- LANDING PAGE VIEW ---
         
-        # Hero HTML Injection
-        st.markdown("""
-            <div class="hero-wrapper">
-                <span class="hero-logo">⚖️</span>
-                <h1 class="hero-title">Advogado de Bolso</h1>
-                <div class="hero-subtitle">Private Legal Intelligence</div>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<h1>Advogado de Bolso</h1>", unsafe_allow_html=True)
+        st.markdown("<h2>INTELIGÊNCIA JURÍDICA PRIVADA</h2>", unsafe_allow_html=True)
 
-        # Login Area (Wrapped in Columns for Centering)
+        # Login Area
         col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            st.markdown('<div class="login-card-wrapper">', unsafe_allow_html=True)
+            password = st.text_input("Senha", type="password", label_visibility="visible", placeholder="CÓDIGO DE ACESSO")
             
-            # Streamlit Widgets (Styled by CSS above)
-            password = st.text_input("Senha", type="password", label_visibility="collapsed", placeholder="ACCESS KEY")
-            
-            if st.button("ENTER SYSTEM"):
+            if st.button("ENTRAR"):
                 if password == "ALUGUEL2025":
                     st.session_state.logged_in = True
                     st.rerun()
                 else:
-                    st.error("Access Denied.")
-            
-            st.markdown('</div>', unsafe_allow_html=True)
-
-        # Footer
-        st.markdown("""
-            <div class="custom-footer">
-                © 2025 Advogado de Bolso • Exclusive Member Access Only
-            </div>
-        """, unsafe_allow_html=True)
+                    st.error("Acesso não autorizado.")
 
     else:
         # --- APP INTERFACE (LOGGED IN) ---
         
-        st.markdown("""
-            <div class="app-header">
-                <h2 style="font-family: 'Playfair Display', serif; color: #ffffff; font-size: 2.5rem; margin: 0;">Client Portal</h2>
-                <p style="color: #c5a059; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.5rem;">Contract Analysis Suite</p>
-            </div>
-        """, unsafe_allow_html=True)
+        st.markdown("<h1>Portal do Cliente</h1>", unsafe_allow_html=True)
+        st.markdown("<h2>ANÁLISE CONTRATUAL SEGURA</h2>", unsafe_allow_html=True)
 
         # Main Content
         with st.container():
             uploaded_file = st.file_uploader("Upload Document (PDF)", type="pdf")
 
             if uploaded_file is not None:
-                with st.spinner("Analyzing Document Structure..."):
+                with st.spinner("Analisando Documento..."):
                     text = extract_text_from_pdf(uploaded_file)
                 
                 if text:
-                    st.success(f"Document Loaded Successfully. ({len(text)} chars)")
+                    st.success(f"Documento Carregado. ({len(text)} caracteres)")
                     
-                    if st.button("EXECUTE LEGAL AUDIT"):
-                        with st.spinner("Processing Legal Analysis..."):
+                    if st.button("EXECUTAR AUDITORIA"):
+                        with st.spinner("Processando Análise Jurídica..."):
                             # 1. Análise Técnica
                             analysis = analyze_contract(text)
                             
-                            st.markdown("### Technical Opinion")
-                            st.markdown(f'<div class="analysis-box">{analysis}</div>', unsafe_allow_html=True)
+                            st.markdown("### Parecer Técnico")
+                            st.markdown(analysis)
                             
                             # 2. Gerar Mensagem de Negociação
                             st.markdown("---")
-                            st.markdown("### Negotiation Draft")
-                            st.info("Formal communication draft generated below.")
+                            st.markdown("### Minuta de Negociação")
+                            st.info("Texto sugerido para comunicação formal.")
                             
-                            with st.spinner("Drafting Correspondence..."):
+                            with st.spinner("Redigindo minuta..."):
                                 try:
                                     model = genai.GenerativeModel('gemini-flash-latest')
                                     msg_prompt = f"""
@@ -336,9 +212,9 @@ def main():
                                     msg_response = model.generate_content(msg_prompt)
                                     negotiation_msg = msg_response.text
                                     
-                                    st.text_area("Copy Text:", value=negotiation_msg, height=300)
+                                    st.text_area("Copiar Texto:", value=negotiation_msg, height=300)
                                 except Exception as e:
-                                    st.error(f"Error generating draft: {e}")
+                                    st.error(f"Erro na geração da minuta: {e}")
 
 if __name__ == "__main__":
     main()
