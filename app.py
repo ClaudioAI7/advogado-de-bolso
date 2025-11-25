@@ -59,7 +59,7 @@ def analyze_contract(text):
 def main():
     st.set_page_config(page_title="Advogado de Bolso", page_icon="⚖️", layout="wide")
 
-    # --- CUSTOM CSS INJECTION (LANDING PAGE STYLE) ---
+    # --- CUSTOM CSS INJECTION (PREMIUM SAAS STYLE) ---
     st.markdown("""
         <style>
             /* Import Google Font */
@@ -73,7 +73,7 @@ def main():
 
             /* Background */
             .stApp {
-                background-color: #f8f9fa;
+                background: linear-gradient(180deg, #f0f4f8 0%, #ffffff 100%);
             }
 
             /* Hide Streamlit Branding */
@@ -81,248 +81,212 @@ def main():
             footer {visibility: hidden;}
             header {visibility: hidden;}
 
-            /* Header */
-            .header-container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 1rem 0;
-                margin-bottom: 2rem;
-            }
-            .header-logo {
-                font-size: 2rem;
-                margin-right: 0.5rem;
-            }
-            .header-title {
-                font-size: 1.5rem;
-                font-weight: 700;
-                color: #0f172a;
-            }
-
             /* Hero Section */
             .hero-container {
                 text-align: center;
-                padding: 2rem 1rem;
-                max-width: 800px;
+                padding: 4rem 1rem 2rem 1rem;
+                max-width: 900px;
                 margin: 0 auto;
             }
+            .hero-emoji {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+                display: block;
+            }
             .hero-title {
-                font-size: 3rem;
+                font-size: 3.5rem;
                 font-weight: 800;
                 color: #0f172a;
-                line-height: 1.2;
+                line-height: 1.1;
                 margin-bottom: 1rem;
+                letter-spacing: -0.02em;
             }
             .hero-subtitle {
                 font-size: 1.25rem;
                 color: #64748b;
                 font-weight: 400;
-                margin-bottom: 2rem;
+                margin-bottom: 3rem;
+                line-height: 1.6;
             }
 
-            /* Login Box / Main Card */
-            .login-container {
+            /* Login Card */
+            .login-card {
                 background-color: white;
-                padding: 3rem;
-                border-radius: 24px;
-                box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-                max-width: 500px;
-                margin: 0 auto 4rem auto;
+                padding: 2.5rem;
+                border-radius: 16px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.08);
                 text-align: center;
+                border: 1px solid #e2e8f0;
             }
-            
+            .login-header {
+                font-weight: 600;
+                color: #334155;
+                margin-bottom: 1.5rem;
+                font-size: 1.1rem;
+            }
+
             /* Inputs */
             .stTextInput > div > div > input {
-                border-radius: 12px;
-                border: 1px solid #e2e8f0;
+                border-radius: 8px;
+                border: 1px solid #cbd5e1;
                 padding: 12px 16px;
                 font-size: 16px;
-                text-align: center;
+                color: #334155;
             }
             .stTextInput > div > div > input:focus {
-                border-color: #2563EB;
-                box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+                border-color: #0e1117;
+                box-shadow: 0 0 0 2px rgba(14, 17, 23, 0.1);
             }
 
             /* Buttons */
             .stButton > button {
-                background-color: #2563EB; /* Royal Blue */
+                background-color: #0e1117; /* Navy/Black */
                 color: white;
-                border-radius: 12px;
-                padding: 14px 32px;
+                border-radius: 8px;
+                padding: 12px 24px;
                 border: none;
-                box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 transition: all 0.2s ease;
                 font-weight: 600;
                 font-size: 16px;
                 width: 100%;
-                margin-top: 1rem;
+                margin-top: 0.5rem;
             }
             .stButton > button:hover {
-                background-color: #1d4ed8;
-                transform: translateY(-2px);
-                box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+                background-color: #1a1f2b;
+                transform: translateY(-1px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
                 color: white;
             }
 
             /* Features Section */
-            .features-container {
-                padding: 4rem 0;
+            .features-section {
+                margin-top: 4rem;
+                padding-top: 2rem;
                 border-top: 1px solid #e2e8f0;
             }
-            .feature-card {
-                background: white;
-                padding: 2rem;
-                border-radius: 16px;
+            .feature-item {
                 text-align: center;
-                height: 100%;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-                transition: transform 0.2s;
-            }
-            .feature-card:hover {
-                transform: translateY(-5px);
+                padding: 1rem;
             }
             .feature-icon {
-                font-size: 2.5rem;
-                margin-bottom: 1rem;
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
                 display: block;
             }
             .feature-title {
                 font-weight: 700;
-                font-size: 1.1rem;
-                margin-bottom: 0.5rem;
                 color: #0f172a;
+                margin-bottom: 0.25rem;
             }
-            .feature-desc {
+            .feature-text {
                 color: #64748b;
-                font-size: 0.95rem;
-                line-height: 1.5;
+                font-size: 0.9rem;
             }
 
             /* Footer */
             .footer-text {
                 text-align: center;
                 color: #94a3b8;
-                font-size: 0.875rem;
-                margin-top: 3rem;
+                font-size: 0.8rem;
+                margin-top: 4rem;
                 padding-bottom: 2rem;
             }
             
-            /* Upload Area */
+            /* Upload Area (Logged In) */
              [data-testid="stFileUploader"] {
-                background-color: #f8f9fa;
+                background-color: white;
                 border: 2px dashed #cbd5e1;
-                border-radius: 16px;
+                border-radius: 12px;
                 padding: 30px;
                 text-align: center;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.02);
             }
         </style>
     """, unsafe_allow_html=True)
 
-    # 1. Header (Always Visible)
-    st.markdown("""
-        <div class="header-container">
-            <span class="header-logo">⚖️</span>
-            <span class="header-title">Advogado de Bolso</span>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # 2. Session State Logic
+    # 1. Session State Logic
     if 'logged_in' not in st.session_state:
         st.session_state.logged_in = False
 
-    # 3. View Controller
+    # 2. View Controller
     if not st.session_state.logged_in:
         # --- LANDING PAGE VIEW ---
         
         # Hero Section
         st.markdown("""
             <div class="hero-container">
+                <span class="hero-emoji">⚖️</span>
                 <h1 class="hero-title">Advogado de Bolso</h1>
-                <p class="hero-subtitle">Não assine seu contrato de aluguel no escuro. Nossa IA encontra as pegadinhas e te protege de multas abusivas em segundos.</p>
+                <h2 class="hero-subtitle">A inteligência artificial que blinda seu contrato de aluguel contra multas e cláusulas abusivas.</h2>
             </div>
         """, unsafe_allow_html=True)
 
-        # Login Area (The "Vault")
-        col1, col2, col3 = st.columns([1, 2, 1])
+        # Login Area (Card)
+        col1, col2, col3 = st.columns([1, 1, 1])
         with col2:
-            st.markdown("""
-                <div class="login-container">
-                    <p style="font-weight: 500; color: #334155; margin-bottom: 15px;">Já tem sua chave de acesso? Digite abaixo para liberar a análise.</p>
-                    
-    """, unsafe_allow_html=True)
+            st.markdown('<div class="login-card"><div class="login-header">Área Restrita. Digite sua chave de acesso:</div>', unsafe_allow_html=True)
             
-            password = st.text_input("Senha", type="password", label_visibility="collapsed", placeholder="Digite sua chave de acesso")
+            password = st.text_input("Senha", type="password", label_visibility="collapsed", placeholder="Sua chave de acesso")
             
             if st.button("Entrar"):
                 if password == "ALUGUEL2025":
                     st.session_state.logged_in = True
                     st.rerun()
                 else:
-                    st.error("Chave de acesso inválida.")
+                    st.error("Chave inválida.")
             
-            st.markdown("""
-                </div>
-                <div style="text-align: center; margin-top: 15px;">
-                    <a href="#" style="color: #64748b; text-decoration: none; font-size: 0.9rem;">Não tem acesso? Adquira sua chave aqui</a>
-                </div>
-            """, unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-        # Features Section (Below the fold)
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        st.divider()
+        # Features Section
+        st.markdown('<div class="features-section"></div>', unsafe_allow_html=True)
         
-        f_col1, f_col2, f_col3 = st.columns(3)
-        
-        with f_col1:
+        f1, f2, f3 = st.columns(3)
+        with f1:
             st.markdown("""
-                <div class="feature-card">
-                    <span class="feature-icon">🚀</span>
-                    <div class="feature-title">Rápido</div>
-                    <div class="feature-desc">Análise completa em menos de 30 segundos.</div>
+                <div class="feature-item">
+                    <span class="feature-icon">✅</span>
+                    <div class="feature-title">Análise em 30s</div>
+                    <div class="feature-text">Sem esperar dias por um advogado.</div>
                 </div>
             """, unsafe_allow_html=True)
-            
-        with f_col2:
+        with f2:
             st.markdown("""
-                <div class="feature-card">
+                <div class="feature-item">
                     <span class="feature-icon">🛡️</span>
-                    <div class="feature-title">Seguro</div>
-                    <div class="feature-desc">Identificamos cláusulas abusivas proibidas por Lei.</div>
+                    <div class="feature-title">Proteção Legal</div>
+                    <div class="feature-text">Identifica o que a Lei do Inquilinato proíbe.</div>
                 </div>
             """, unsafe_allow_html=True)
-            
-        with f_col3:
+        with f3:
             st.markdown("""
-                <div class="feature-card">
-                    <span class="feature-icon">💬</span>
-                    <div class="feature-title">Negociável</div>
-                    <div class="feature-desc">Geramos o texto pronto para você enviar ao proprietário.</div>
+                <div class="feature-item">
+                    <span class="feature-icon">🎁</span>
+                    <div class="feature-title">Kit Negociação</div>
+                    <div class="feature-text">Receba a ferramenta exclusiva para convencer o proprietário.</div>
                 </div>
             """, unsafe_allow_html=True)
 
         # Footer
         st.markdown("""
             <div class="footer-text">
-                © 2025 Advogado de Bolso • Tecnologia Google Gemini 3 • Seus dados são processados de forma criptografada e não são armazenados.
+                © 2025 • Tecnologia Jurídica Avançada
             </div>
         """, unsafe_allow_html=True)
 
     else:
         # --- APP INTERFACE (LOGGED IN) ---
         
-        # Simple Welcome / Context
+        # Header for App
         st.markdown("""
-            <div style="text-align: center; margin-bottom: 2rem;">
-                <h2 style="color: #0f172a;">Área de Análise Segura</h2>
-                <p style="color: #64748b;">Faça o upload do seu contrato para iniciar.</p>
+            <div style="text-align: center; padding: 2rem 0;">
+                <h1 style="font-size: 2rem; font-weight: 800; color: #0f172a;">Advogado de Bolso <span style="color: #64748b; font-weight: 400;">| Análise</span></h1>
             </div>
         """, unsafe_allow_html=True)
 
-        # Main Card Container
+        # Main Content
         with st.container():
-            # Upload
-            uploaded_file = st.file_uploader("Arraste seu PDF aqui", type="pdf")
+            uploaded_file = st.file_uploader("Faça upload do seu contrato (PDF)", type="pdf")
 
             if uploaded_file is not None:
                 with st.spinner("Lendo documento..."):
@@ -332,7 +296,7 @@ def main():
                     st.success(f"Documento lido com sucesso! ({len(text)} caracteres)")
                     
                     if st.button("Analisar Contrato Agora"):
-                        with st.spinner("O Advogado de Bolso está analisando cada cláusula..."):
+                        with st.spinner("Analisando cláusulas..."):
                             # 1. Análise Técnica
                             analysis = analyze_contract(text)
                             
@@ -341,15 +305,10 @@ def main():
                             
                             # 2. Gerar Mensagem de Negociação
                             st.markdown("---")
-                            st.markdown("""
-                                <div style="background-color: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 20px;">
-                                    <h3 style="margin-top: 0;">💬 Mensagem de Negociação</h3>
-                                </div>
-                            """, unsafe_allow_html=True)
+                            st.markdown("### 🎁 Bônus: Kit de Negociação")
+                            st.info("Use o texto abaixo para negociar com o proprietário.")
                             
-                            st.info("🎁 **Bônus Exclusivo:** Sabemos que confrontar o proprietário ou imobiliária pode ser desconfortável. Para você não se estressar, nosso aplicativo preparou o texto ideal — formal, educado e firme — baseado exatamente nos problemas encontrados acima. É só copiar e enviar!")
-                            
-                            with st.spinner("Escrevendo mensagem de negociação..."):
+                            with st.spinner("Gerando mensagem..."):
                                 try:
                                     model = genai.GenerativeModel('gemini-flash-latest')
                                     msg_prompt = f"""
@@ -366,7 +325,7 @@ def main():
                                     
                                     st.text_area("Copie o texto abaixo:", value=negotiation_msg, height=300)
                                 except Exception as e:
-                                    st.error(f"Não foi possível gerar a mensagem de negociação: {e}")
+                                    st.error(f"Erro ao gerar mensagem: {e}")
 
 if __name__ == "__main__":
     main()
