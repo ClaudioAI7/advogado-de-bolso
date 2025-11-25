@@ -73,7 +73,7 @@ def main():
 
             /* Background */
             .stApp {
-                background-color: #F0F2F6;
+                background-color: #f8f9fa;
             }
 
             /* Hide Streamlit Branding */
@@ -238,8 +238,8 @@ def main():
         # Hero Section
         st.markdown("""
             <div class="hero-container">
-                <h1 class="hero-title">Não assine seu contrato de aluguel no escuro.</h1>
-                <p class="hero-subtitle">Nossa IA analisa as pegadinhas jurídicas e te protege de multas abusivas em segundos.</p>
+                <h1 class="hero-title">Advogado de Bolso</h1>
+                <p class="hero-subtitle">Não assine seu contrato de aluguel no escuro. Nossa IA encontra as pegadinhas e te protege de multas abusivas em segundos.</p>
             </div>
         """, unsafe_allow_html=True)
 
@@ -247,14 +247,14 @@ def main():
         col1, col2, col3 = st.columns([1, 2, 1])
         with col2:
             st.markdown("""
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <p style="font-weight: 500; color: #334155;">Já tem sua chave de acesso? Digite abaixo para liberar a análise.</p>
-                </div>
-            """, unsafe_allow_html=True)
+                <div class="login-container">
+                    <p style="font-weight: 500; color: #334155; margin-bottom: 15px;">Já tem sua chave de acesso? Digite abaixo para liberar a análise.</p>
+                    
+    """, unsafe_allow_html=True)
             
             password = st.text_input("Senha", type="password", label_visibility="collapsed", placeholder="Digite sua chave de acesso")
             
-            if st.button("Liberar Análise"):
+            if st.button("Entrar"):
                 if password == "ALUGUEL2025":
                     st.session_state.logged_in = True
                     st.rerun()
@@ -262,6 +262,7 @@ def main():
                     st.error("Chave de acesso inválida.")
             
             st.markdown("""
+                </div>
                 <div style="text-align: center; margin-top: 15px;">
                     <a href="#" style="color: #64748b; text-decoration: none; font-size: 0.9rem;">Não tem acesso? Adquira sua chave aqui</a>
                 </div>
@@ -278,7 +279,7 @@ def main():
                 <div class="feature-card">
                     <span class="feature-icon">🚀</span>
                     <div class="feature-title">Rápido</div>
-                    <div class="feature-desc">Análise completa e detalhada do seu contrato em menos de 30 segundos.</div>
+                    <div class="feature-desc">Análise completa em menos de 30 segundos.</div>
                 </div>
             """, unsafe_allow_html=True)
             
@@ -287,7 +288,7 @@ def main():
                 <div class="feature-card">
                     <span class="feature-icon">🛡️</span>
                     <div class="feature-title">Seguro</div>
-                    <div class="feature-desc">Identificamos cláusulas abusivas que a Lei do Inquilinato proíbe.</div>
+                    <div class="feature-desc">Identificamos cláusulas abusivas proibidas por Lei.</div>
                 </div>
             """, unsafe_allow_html=True)
             
@@ -296,14 +297,14 @@ def main():
                 <div class="feature-card">
                     <span class="feature-icon">💬</span>
                     <div class="feature-title">Negociável</div>
-                    <div class="feature-desc">Geramos o texto exato e formal para você enviar ao proprietário.</div>
+                    <div class="feature-desc">Geramos o texto pronto para você enviar ao proprietário.</div>
                 </div>
             """, unsafe_allow_html=True)
 
         # Footer
         st.markdown("""
             <div class="footer-text">
-                Tecnologia de ponta Google Gemini 3.0 • Seus dados não são armazenados.
+                © 2025 Advogado de Bolso • Tecnologia Google Gemini 3 • Seus dados são processados de forma criptografada e não são armazenados.
             </div>
         """, unsafe_allow_html=True)
 
